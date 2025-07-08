@@ -1,0 +1,89 @@
+.game-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.game-board {
+  flex: 1;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  grid-template-rows: auto 1fr;
+  gap: 20px;
+  grid-template-areas:
+    "message message"
+    "characters questions";
+}
+
+.game-message {
+  grid-area: message;
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.game-message.won {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.game-message.lost {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.play-again-button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 20px;
+}
+
+.play-again-button:hover {
+  background-color: #303f9f;
+}
+
+.characters-grid {
+  grid-area: characters;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.question-panel-container {
+  grid-area: questions;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .game-board {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "message"
+      "characters"
+      "questions";
+    padding: 10px;
+  }
+  
+  .game-message {
+    font-size: 16px;
+    padding: 10px;
+  }
+  
+  .characters-grid {
+    justify-content: space-around;
+    gap: 10px;
+  }
+}

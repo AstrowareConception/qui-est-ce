@@ -1,0 +1,58 @@
+/* Styles de base pour le jeu "Qui est-ce?" */
+:root {
+  --primary-color: #3f51b5;
+  --primary-dark: #303f9f;
+  --success-color: #2e7d32;
+  --error-color: #c62828;
+  --background-color: #f9f9f9;
+  --card-background: #ffffff;
+  --text-color: #333333;
+  --border-color: #e0e0e0;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Styles de base pour les boutons */
+button {
+  border-radius: 4px;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: var(--primary-color);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: var(--primary-dark);
+}
+
+button:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Accessibilité */
+@media (prefers-reduced-motion) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

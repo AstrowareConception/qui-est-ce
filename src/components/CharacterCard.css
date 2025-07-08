@@ -1,0 +1,68 @@
+.character-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 250px;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.character-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.character-image-container {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.character-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.character-name {
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Style pour les personnages éliminés */
+.character-card.eliminated {
+  opacity: 0.5;
+  filter: grayscale(100%);
+  box-shadow: none;
+  cursor: default;
+}
+
+.character-card.eliminated:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .character-card {
+    width: 100px;
+    margin: 5px;
+  }
+  
+  .character-image-container {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .character-name {
+    font-size: 12px;
+  }
+}
