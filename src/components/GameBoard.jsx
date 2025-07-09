@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import CharacterCard from './CharacterCard';
 import QuestionPanel from './QuestionPanel';
 import Header from './Header';
@@ -17,6 +17,8 @@ const GameBoard = ({ characters }) => {
   const [askedQuestions, setAskedQuestions] = useState([]);
   const [gameStatus, setGameStatus] = useState('playing'); // 'playing', 'won', 'lost'
   const [message, setMessage] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const gameContainerRef = useRef(null);
 
   // Initialisation du jeu
   useEffect(() => {
@@ -41,6 +43,12 @@ const GameBoard = ({ characters }) => {
     setAskedQuestions([]);
     setGameStatus('playing');
     setMessage('Posez des questions pour trouver le personnage mystère !');
+    setShowModal(false);
+  };
+
+  // Fonction pour fermer le modal
+  const closeModal = () => {
+    setShowModal(false);
   };
 
   // Gère la pose d'une question
@@ -180,11 +188,21 @@ const GameBoard = ({ characters }) => {
       if (correct) {
         setGameStatus('won');
         setMessage(`Bravo ! Vous avez trouvé ${mysteryCharacter.firstName} ${mysteryCharacter.lastName} !`);
+        setShowModal(true);
+        // Scroll to top
+        if (gameContainerRef.current) {
+          gameContainerRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
       } else {
         // Ce cas ne devrait pas arriver si la logique de filtrage est correcte,
         // mais on le gère quand même par sécurité
         setGameStatus('lost');
         setMessage(`Dommage ! Le personnage mystère était ${mysteryCharacter.firstName} ${mysteryCharacter.lastName}.`);
+        setShowModal(true);
+        // Scroll to top
+        if (gameContainerRef.current) {
+          gameContainerRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     } else {
       setMessage(`Réponse: ${answer ? 'Oui' : 'Non'}. Continuez à poser des questions !`);
@@ -200,9 +218,19 @@ const GameBoard = ({ characters }) => {
     if (correct) {
       setGameStatus('won');
       setMessage(`Bravo ! Vous avez trouvé ${mysteryCharacter.firstName} ${mysteryCharacter.lastName} !`);
+      setShowModal(true);
+      // Scroll to top
+      if (gameContainerRef.current) {
+        gameContainerRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
     } else {
       setGameStatus('lost');
       setMessage(`Dommage ! Le personnage mystère était ${mysteryCharacter.firstName} ${mysteryCharacter.lastName}.`);
+      setShowModal(true);
+      // Scroll to top
+      if (gameContainerRef.current) {
+        gameContainerRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -210,12 +238,27 @@ const GameBoard = ({ characters }) => {
   const remainingCount = countRemainingCharacters(gameCharacters);
 
   return (
-    <div className="game-container">
+    <div className="game-container" ref={gameContainerRef}>
       <Header 
         onRestart={startNewGame} 
         remainingCount={remainingCount} 
         totalCount={characters.length} 
       />
+
+      {/* Modal de fin de partie */}
+      {showModal && (
+        <div className="game-modal-overlay" onClick={closeModal}>
+          <div className="game-modal" onClick={(e) => e.stopPropagation()}>
+            <div className={`game-modal-content ${gameStatus}`}>
+              <h2>{gameStatus === 'won' ? 'Victoire !' : 'Défaite !'}</h2>
+              <p>{message}</p>
+              <button className="play-again-button" onClick={startNewGame}>
+                Nouvelle partie
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="game-board">
         {/* Message d'état du jeu */}

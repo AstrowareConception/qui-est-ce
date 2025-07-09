@@ -22,7 +22,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   text-align: center;
   padding: 20px;
 }
@@ -38,10 +38,12 @@ button {
 
 img {
   max-width: 100%;
+  height: auto;
 }
 
-@media (max-width: 768px) {
+/* Desktop styles */
+@media (min-width: 769px) {
   .loading, .error {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
   }
 }
